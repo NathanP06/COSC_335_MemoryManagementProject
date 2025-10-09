@@ -1,0 +1,10 @@
+#Ignore all files
+*
+
+#Except github files
+!.gitignore
+!README.md
+
+#Except project files
+!MemoryManagementProject
+!MemoryManagementProject/Program.cs
