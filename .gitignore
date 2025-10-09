@@ -1,10 +1,13 @@
 #Ignore all files
 *
 
-#Except github files
+# Keep the .gitignore itself
 !.gitignore
+
+# Keep the README (common filename is README.md)
 !README.md
 
-#Except project files
+
+# Keep the project folder and the program C# file.
 !MemoryManagementProject
 !MemoryManagementProject/Program.cs
