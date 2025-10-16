@@ -33,7 +33,11 @@ class MemoryDemo
     {
         Console.WriteLine("=== Memory Demo in C# ===\n");
 
+        // Starts method "StackExample" which stores two variables in stack memory, then creates a third value
+        // by combining these two values. The method then prints the value of the third variable.
+        // After the method completes, all three variables are removed from stack memory.
         StackExample(2, 3);
+
         HeapExample();
         BufferExample();
 
