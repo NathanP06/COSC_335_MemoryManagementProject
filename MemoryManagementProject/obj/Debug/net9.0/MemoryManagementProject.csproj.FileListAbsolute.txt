@@ -1,0 +1,15 @@
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\bin\Debug\net9.0\MemoryManagementProject.exe
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\bin\Debug\net9.0\MemoryManagementProject.deps.json
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\bin\Debug\net9.0\MemoryManagementProject.runtimeconfig.json
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\bin\Debug\net9.0\MemoryManagementProject.dll
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\bin\Debug\net9.0\MemoryManagementProject.pdb
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\obj\Debug\net9.0\MemoryManagementProject.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\obj\Debug\net9.0\MemoryManagementProject.AssemblyInfoInputs.cache
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\obj\Debug\net9.0\MemoryManagementProject.AssemblyInfo.cs
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\obj\Debug\net9.0\MemoryManagementProject.csproj.CoreCompileInputs.cache
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\obj\Debug\net9.0\MemoryManagementProject.dll
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\obj\Debug\net9.0\refint\MemoryManagementProject.dll
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\obj\Debug\net9.0\MemoryManagementProject.pdb
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\obj\Debug\net9.0\MemoryManagementProject.genruntimeconfig.cache
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\obj\Debug\net9.0\ref\MemoryManagementProject.dll
+c:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\MemoryManagementProject\obj\Debug\net9.0\MemoryManagementProject.sourcelink.json

@@ -38,6 +38,7 @@ class MemoryDemo
         // After the method completes, all three variables are removed from stack memory.
         StackExample(2, 3);
 
+
         HeapExample();
         BufferExample();
 
