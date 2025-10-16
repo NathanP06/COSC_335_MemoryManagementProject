@@ -1,12 +1,14 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 class MemoryDemo
 {
-    static void StackExample(int x)
+    static void StackExample(int x, int y)
     {
-        int localVar = x; // Stack memory
+        int localVar = x; // Stored in stack memory
+        int localVar2 = y; // Stored in stack memory
         Console.WriteLine($"[STACK] localVar = {localVar}");
     }
 
@@ -31,7 +33,7 @@ class MemoryDemo
     {
         Console.WriteLine("=== Memory Demo in C# ===\n");
 
-        StackExample(10);
+        StackExample(2, 3);
         HeapExample();
         BufferExample();
 
