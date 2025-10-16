@@ -5,10 +5,12 @@ using System.Text;
 
 class MemoryDemo
 {
+    //Uses stack memory to store variables x & y.
+    //When the method completes, these variables are removed from stack memory.
     static void StackExample(int x, int y)
     {
-        int localVar = x; // Stored in stack memory
-        int localVar2 = y; // Stored in stack memory
+        int localVar = x;
+        int localVar2 = y;
         Console.WriteLine($"[STACK] localVar = {localVar}");
     }
 
