@@ -52,3 +52,10 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# VSCODE File
+.vscode/
+
+# Other files
+COSC_335_MemoryManagementProject.csproj
+COSC_335_MemoryManagementProject.sln
