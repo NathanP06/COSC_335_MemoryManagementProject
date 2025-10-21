@@ -12,7 +12,7 @@ namespace MemoryManagerDemo
 
             // 1️⃣ STACK DEMO
             Console.WriteLine("=== STACK DEMO ===");
-            StackExample(3);
+            StackExample(5);
 
             // 2️⃣ HEAP DEMO
             Console.WriteLine("\n=== HEAP DEMO ===");
