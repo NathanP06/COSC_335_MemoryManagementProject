@@ -9,53 +9,82 @@ namespace MemoryManagerDemo
         //Main method
         static void Main(string[] args)
         {
-            Console.WriteLine("🧠 Memory Management Demo in C#\n");
+            Console.WriteLine("Memory Management Demo in C#\n");
 
-            // 1️⃣ STACK DEMO
+            // STACK DEMO
             Console.WriteLine("=== STACK DEMO ===");
-            StackExample(5);
+            StackExample();
 
-            // 2️⃣ HEAP DEMO
+            // HEAP DEMO
             Console.WriteLine("\n=== HEAP DEMO ===");
             HeapExample();
 
-            // 3️⃣ BUFFER DEMO
+            // BUFFER DEMO
             Console.WriteLine("\n=== BUFFER DEMO ===");
             BufferExample();
 
-            Console.WriteLine("\n✅ Demo complete!");
+            Console.WriteLine("\n Demo complete!");
         }
 
-        // ----------------------------------------------------------
-        // 1️⃣ STACK EXAMPLE
-        // ----------------------------------------------------------
-
-        // This method demonstrates stack memory usage via recursion
-        // It shows how local variables are stored on the stack
-        // using the LIFO principle (Last In, First Out)
-        static void StackExample(int depth)
+        // STACK EXAMPLE (LIFO and Stack Overflow demo)
+        static void StackExample()
         {
-            // Each recursive call creates a new stack frame
-            if (depth == 0)
+            Console.WriteLine("Imagine a stack of plates — Last In, First Out (LIFO).\n");
+
+            Stack<string> plateStack = new Stack<string>();
+
+            // Push plates onto the stack (LIFO: last plate added will be first removed)
+            Console.WriteLine("Adding plates to the stack...");
+            for (int i = 1; i <= 5; i++)
             {
-                Console.WriteLine("Reached the bottom of the stack!");
+                string plate = $"Plate #{i}";
+                plateStack.Push(plate);
+                Console.WriteLine($"Pushed {plate}");
+            }
+
+            Console.WriteLine("\nNow removing plates from the stack (LIFO order):");
+            while (plateStack.Count > 0)
+            {
+                string plate = plateStack.Pop();
+                Console.WriteLine($"Popped {plate}");
+            }
+
+            Console.WriteLine("\nAll plates have been removed from the stack.");
+
+            // === STACK OVERFLOW DEMO ===
+            Console.WriteLine("What happens when too many 'plates' are on the call stack:");
+
+            try
+            {
+                CauseStackOverflow(1);
+            }
+            catch (StackOverflowException)
+            {
+                // This catch block won't trigger
+                // .NET runtime immediately terminates the process to protect memory integrity
+                Console.WriteLine("Stack overflow occurred!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception caught: {ex.Message}");
+            }
+
+        }
+
+        // A recursive function that simulates an ever-growing call stack
+        static void CauseStackOverflow(int level)
+        {
+            if (level > 10000)
+            {
+                Console.WriteLine(".NET Prevented actual crash — stack is overflowing!");
                 return;
             }
 
-            int localNumber = depth; // stored on the stack
-            Console.WriteLine($"Stack depth: {localNumber}");
-
-            // Recursive call (creates a new stack frame)
-            StackExample(depth - 1);
-
-            // When the function ends, this stack frame is popped off
-            Console.WriteLine($"Returning from depth {localNumber}");
+            // Recursive call with no proper base case (would overflow in reality)
+            CauseStackOverflow(level + 1);
         }
 
-        // ----------------------------------------------------------
-        // 2️⃣ HEAP EXAMPLE
-        // ----------------------------------------------------------
-        // This method demonstrates heap memory usage via object instantiation
+        // HEAP EXAMPLE
         static void HeapExample()
         {
             // Objects created with 'new' are stored on the heap
@@ -87,9 +116,7 @@ namespace MemoryManagerDemo
             }
         }
 
-        // ----------------------------------------------------------
-        // 3️⃣ BUFFER EXAMPLE
-        // ----------------------------------------------------------
+        //BUFFER EXAMPLE
         static void BufferExample()
         {
             // Imagine we’re streaming data in chunks (like reading from a file)
