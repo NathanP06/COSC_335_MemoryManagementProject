@@ -25,7 +25,7 @@ namespace MemoryManagerDemo
             Console.WriteLine("\n Demo complete!");
         }
 
-        // STACK EXAMPLE (LIFO and Stack Overflow demo)
+        // STACK EXAMPLE (LIFO and Stack Overflow demo).
         static void StackExample()
         {
             Console.WriteLine("Imagine a stack of plates — Last In, First Out (LIFO).\n");
