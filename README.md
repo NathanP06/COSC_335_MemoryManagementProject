@@ -31,13 +31,13 @@ The program will run the three demos in order and print explanatory text to the 
 
 ## What each demo shows
 
-- StackExample(int depth)
+- `StackExample(int depth)`
 	- Demonstrates stack frames through recursion. Each recursive call creates a new frame and local variables live on the stack. When recursion returns, frames are popped (LIFO behavior).
 
-- HeapExample()
+- `HeapExample()`
 	- Shows object allocation on the heap using the `Dog` class. Two Dog objects are created and then their references are set to `null`, illustrating how objects become eligible for garbage collection.
 
-- BufferExample()
+- `BufferExample()`
 	- Simulates stream processing with a fixed-size buffer (10 bytes). Shows how data is read in chunks from a MemoryStream and how buffers help manage memory when processing streams.
 
 ## How to present this to a class (quick tips)
