@@ -6,6 +6,7 @@ namespace MemoryManagerDemo
 {
     class Program
     {
+        //Main method
         static void Main(string[] args)
         {
             Console.WriteLine("🧠 Memory Management Demo in C#\n");
@@ -28,6 +29,10 @@ namespace MemoryManagerDemo
         // ----------------------------------------------------------
         // 1️⃣ STACK EXAMPLE
         // ----------------------------------------------------------
+
+        // This method demonstrates stack memory usage via recursion
+        // It shows how local variables are stored on the stack
+        // using the LIFO principle (Last In, First Out)
         static void StackExample(int depth)
         {
             // Each recursive call creates a new stack frame
@@ -50,6 +55,7 @@ namespace MemoryManagerDemo
         // ----------------------------------------------------------
         // 2️⃣ HEAP EXAMPLE
         // ----------------------------------------------------------
+        // This method demonstrates heap memory usage via object instantiation
         static void HeapExample()
         {
             // Objects created with 'new' are stored on the heap
