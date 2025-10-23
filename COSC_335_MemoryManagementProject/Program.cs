@@ -6,6 +6,7 @@ namespace MemoryManagerDemo
 {
     class Program
     {
+        //Main method
         static void Main(string[] args)
         {
             Console.WriteLine("Memory Management Demo in C#\n");
