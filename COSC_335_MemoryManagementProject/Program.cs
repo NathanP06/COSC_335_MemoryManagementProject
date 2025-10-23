@@ -87,32 +87,90 @@ namespace MemoryManagerDemo
         // HEAP EXAMPLE
         static void HeapExample()
         {
+            Console.WriteLine("Restaurant Memory Management Demo:\n");
+
             // Objects created with 'new' are stored on the heap
-            Dog rover = new Dog("Rover");
-            Dog bella = new Dog("Bella");
+            Table table1 = new Table(1, "Window");
+            Table table2 = new Table(2, "Patio");
 
-            rover.Speak();
-            bella.Speak();
+            // Create and assign orders to tables
+            table1.AssignOrder(new Order("Pasta", "Tiramisu"));
+            table2.AssignOrder(new Order("Steak", "Cheesecake"));
 
-            // The garbage collector will clean these up later
-            rover = null;
-            bella = null;
+            // Show current restaurant state
+            table1.DisplayStatus();
+            table2.DisplayStatus();
 
-            Console.WriteLine("Dogs are now unreferenced and eligible for garbage collection.");
+            Console.WriteLine("\nCustomers from Table 1 have paid and left...");
+            // When we clear the reference, the Order object becomes eligible for garbage collection
+            table1.CloseOrder();
+            
+            Console.WriteLine("Customers from Table 2 have paid and left...");
+            // Same for table 2's order
+            table2.CloseOrder();
+
+            // Now the tables are being cleaned for the night
+            Console.WriteLine("\nRestaurant is closing for the night...");
+            // Remove references to the tables, making them eligible for garbage collection
+            table1 = default!;
+            table2 = default!;
+
+            Console.WriteLine("Tables and their orders are now unreferenced and eligible for garbage collection.");
         }
 
-        class Dog
+        class Table
         {
-            public string Name { get; set; } // stored on the heap
+            public int Number { get; private set; }
+            public string Location { get; private set; }
+            private Order? CurrentOrder; // stored on the heap
 
-            public Dog(string name)
+            public Table(int number, string location)
             {
-                Name = name;
+                Number = number;
+                Location = location;
+                CurrentOrder = null;
             }
 
-            public void Speak()
+            public void AssignOrder(Order order)
             {
-                Console.WriteLine($"{Name} says: Woof!");
+                CurrentOrder = order;
+            }
+
+            public void CloseOrder()
+            {
+                Console.WriteLine($"Clearing order for Table {Number}...");
+                CurrentOrder = null; // Order object becomes eligible for garbage collection
+            }
+
+            public void DisplayStatus()
+            {
+                Console.WriteLine($"\nTable {Number} ({Location}):");
+                if (CurrentOrder != null)
+                {
+                    CurrentOrder.DisplayItems();
+                }
+                else
+                {
+                    Console.WriteLine("No current order");
+                }
+            }
+        }
+
+        class Order
+        {
+            private string MainCourse { get; set; }
+            private string Dessert { get; set; }
+
+            public Order(string mainCourse, string dessert)
+            {
+                MainCourse = mainCourse;
+                Dessert = dessert;
+            }
+
+            public void DisplayItems()
+            {
+                Console.WriteLine($"  Main Course: {MainCourse}");
+                Console.WriteLine($"  Dessert: {Dessert}");
             }
         }
 
