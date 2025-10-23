@@ -86,3 +86,5 @@ Notes:
 - If your demo run creates only a few objects the GC may not run frequently. You can repeatedly run `Program.cs` or attach a runtime tool while it runs to observe collection activity.
 
 Important: This repository's intent is to keep the demonstrations focused in `Program.cs`. The guidance above uses only non-invasive runtime tools (dotnet-counters, dotnet-trace, dotnet-gcdump, Visual Studio Diagnostics, PerfView).
+
+This is generated through GitHub Copilot Chat
