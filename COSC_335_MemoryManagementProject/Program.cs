@@ -31,6 +31,7 @@ namespace MemoryManagerDemo
         {
             Console.WriteLine("Imagine a stack of plates — Last In, First Out (LIFO).\n");
 
+            //Creates a new stack to hold "plates". Each plate is represented by a string.
             Stack<string> plateStack = new Stack<string>();
 
             // Push plates onto the stack (LIFO: last plate added will be first removed)
@@ -42,6 +43,14 @@ namespace MemoryManagerDemo
                 Console.WriteLine($"Pushed {plate}");
             }
 
+            // Printing the current stack shows us that the last plate added is on top
+            Console.WriteLine("\nCurrent stack of plates:");
+            foreach (string plate in plateStack)
+            {
+                Console.WriteLine(plate);
+            }
+
+            // Then we pop plates off the stack using the LIFO principle, removing the most recently added plate first
             Console.WriteLine("\nNow removing plates from the stack (LIFO order):");
             while (plateStack.Count > 0)
             {
