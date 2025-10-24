@@ -120,6 +120,7 @@ namespace MemoryManagerDemo
 
             // Now the tables are being cleaned for the night
             Console.WriteLine("\nRestaurant is closing for the night...");
+            
             // Remove references to the tables, making them eligible for garbage collection
             table1 = default!;
             table2 = default!;
