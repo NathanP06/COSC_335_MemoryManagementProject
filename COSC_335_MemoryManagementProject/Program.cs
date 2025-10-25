@@ -198,7 +198,7 @@ namespace MemoryManagerDemo
             // String we will read data from
             string data = "This is a string of data that will be read using a buffer. Buffers help manage memory efficiently by reading data in chunks. While this is a simple example, buffers are crucial in real-world applications for performance optimization and memory management.";
 
-            // Convert the string data to bytes using UTF8 encoding (Standard encoding method)
+            // Convert the string data to bytes using UTF8 encoding
             byte[] allBytes = Encoding.UTF8.GetBytes(data);
 
             // A small 10-byte "buffer" to read data in chunks
