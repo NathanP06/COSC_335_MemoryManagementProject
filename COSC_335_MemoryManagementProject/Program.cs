@@ -113,14 +113,14 @@ namespace MemoryManagerDemo
             Console.WriteLine("\nCustomers from Table 1 have paid and left...");
             // When we clear the reference, the Order object becomes eligible for garbage collection
             table1.CloseOrder();
-            
+
             Console.WriteLine("Customers from Table 2 have paid and left...");
             // Same for table 2's order
             table2.CloseOrder();
 
             // Now the tables are being cleaned for the night
             Console.WriteLine("\nRestaurant is closing for the night...");
-            
+
             // Remove references to the tables, making them eligible for garbage collection
             table1 = null;
             table2 = null;
@@ -195,13 +195,14 @@ namespace MemoryManagerDemo
         //BUFFER EXAMPLE
         static void BufferExample()
         {
-            // Imagine we’re streaming data in chunks (like reading from a file)
-            string data = "This is a stream of data that will be read using a buffer.";
+            // String we will read data from
+            string data = "This is a string of data that will be read using a buffer. Buffers help manage memory efficiently by reading data in chunks. While this is a simple example, buffers are crucial in real-world applications for performance optimization and memory management.";
 
-            //convert the string data to bytes using UTF8 encoding (Standard encoding method)
+            // Convert the string data to bytes using UTF8 encoding (Standard encoding method)
             byte[] allBytes = Encoding.UTF8.GetBytes(data);
 
-            // A small 10-byte buffer to read data in chunks
+            // A small 10-byte "buffer" to read data in chunks
+            // In actuality, an array of bytes is created, storing 10 bytes
             byte[] buffer = new byte[10];
 
             // Using MemoryStream to simulate reading data in chunks
@@ -211,6 +212,7 @@ namespace MemoryManagerDemo
                 int chunkNumber = 1;
 
                 // Read data into the buffer in chunks
+                // bytesRead is equal to the number of bytes actually read into the buffer
                 while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
                 {
                     // Creates the string "chunk" and takes the bytesRead integer returned by 
