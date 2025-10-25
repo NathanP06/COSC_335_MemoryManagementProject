@@ -118,6 +118,10 @@ namespace MemoryManagerDemo
             // Same for table 2's order
             table2.CloseOrder();
 
+            // Force garbage collection for demonstration purposes
+            GC.Collect(); 
+            GC.WaitForPendingFinalizers();
+
             // Now the tables are being cleaned for the night
             Console.WriteLine("\nRestaurant is closing for the night...");
             
