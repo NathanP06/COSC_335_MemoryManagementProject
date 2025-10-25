@@ -189,11 +189,14 @@ namespace MemoryManagerDemo
         {
             // Imagine we’re streaming data in chunks (like reading from a file)
             string data = "This is a stream of data that will be read using a buffer.";
+
+            //convert the string data to bytes
             byte[] allBytes = Encoding.UTF8.GetBytes(data);
 
-            // A small 10-byte buffer
+            // A small 10-byte buffer to read data in chunks
             byte[] buffer = new byte[10];
 
+            // Using MemoryStream to simulate reading data in chunks
             using (MemoryStream stream = new MemoryStream(allBytes))
             {
                 int bytesRead;
