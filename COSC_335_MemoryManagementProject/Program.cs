@@ -99,8 +99,8 @@ namespace MemoryManagerDemo
             Console.WriteLine("Restaurant Memory Management Demo:\n");
 
             // Objects created with 'new' are stored on the heap
-            Table? table1 = new Table(1, "Window");
-            Table? table2 = new Table(2, "Patio");
+            Table? table1 = new(1, "Window");
+            Table? table2 = new(2, "Patio");
 
             // Create and assign orders to tables
             table1.AssignOrder(new Order("Pasta", "Tiramisu"));
