@@ -31,7 +31,7 @@ namespace MemoryManagerDemo
         {
             Console.WriteLine("Imagine a stack of plates — Last In, First Out (LIFO).\n");
 
-            //Creates a new stack to hold "plates". Each plate is represented by a string.
+            //Creates a new stack using C# Stack Class
             Stack<string> plateStack = new Stack<string>();
 
             // Push plates onto the stack (LIFO: last plate added will be first removed)
