@@ -206,6 +206,7 @@ namespace MemoryManagerDemo
             byte[] buffer = new byte[10];
 
             // Using MemoryStream to simulate reading data in chunks
+            // Creates a stream where data is stored in memory/RAM rather than a file
             using (MemoryStream stream = new MemoryStream(allBytes))
             {
                 int bytesRead;
