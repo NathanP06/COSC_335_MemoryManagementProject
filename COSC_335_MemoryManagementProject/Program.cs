@@ -130,10 +130,12 @@ namespace MemoryManagerDemo
 
         class Table
         {
+            // Properties of the Table class
             public int Number { get; private set; }
             public string Location { get; private set; }
             private Order? CurrentOrder; // stored on the heap
 
+            // Constructor
             public Table(int number, string location)
             {
                 Number = number;
@@ -141,17 +143,20 @@ namespace MemoryManagerDemo
                 CurrentOrder = null;
             }
 
+            // Assign an order to the table
             public void AssignOrder(Order order)
             {
                 CurrentOrder = order;
             }
 
+            // Clear the current order when customers leave
             public void CloseOrder()
             {
                 Console.WriteLine($"Clearing order for Table {Number}...");
                 CurrentOrder = null; // Order object becomes eligible for garbage collection
             }
 
+            // Display current status of the table
             public void DisplayStatus()
             {
                 Console.WriteLine($"\nTable {Number} ({Location}):");
@@ -168,15 +173,18 @@ namespace MemoryManagerDemo
 
         class Order
         {
+            // Properties of the Order class
             private string MainCourse { get; set; }
             private string Dessert { get; set; }
 
+            // Constructor
             public Order(string mainCourse, string dessert)
             {
                 MainCourse = mainCourse;
                 Dessert = dessert;
             }
 
+            // Display ordered items
             public void DisplayItems()
             {
                 Console.WriteLine($"  Main Course: {MainCourse}");
@@ -189,19 +197,28 @@ namespace MemoryManagerDemo
         {
             // Imagine we’re streaming data in chunks (like reading from a file)
             string data = "This is a stream of data that will be read using a buffer.";
+
+            //convert the string data to bytes using UTF8 encoding (Standard encoding method)
             byte[] allBytes = Encoding.UTF8.GetBytes(data);
 
-            // A small 10-byte buffer
+            // A small 10-byte buffer to read data in chunks
             byte[] buffer = new byte[10];
 
+            // Using MemoryStream to simulate reading data in chunks
             using (MemoryStream stream = new MemoryStream(allBytes))
             {
                 int bytesRead;
                 int chunkNumber = 1;
 
+                // Read data into the buffer in chunks
                 while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
                 {
+                    // Creates the string "chunk" and takes the bytesRead integer returned by 
+                    // the Read method to know how many bytes were actually read
+                    // Takes the bytes that were read and converts them to a string for display
                     string chunk = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+
+                    // Display the chunk read
                     Console.WriteLine($"Buffer #{chunkNumber++}: {chunk}");
                 }
             }
