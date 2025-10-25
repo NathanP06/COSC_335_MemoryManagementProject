@@ -31,6 +31,7 @@ namespace MemoryManagerDemo
         {
             Console.WriteLine("Imagine a stack of plates — Last In, First Out (LIFO).\n");
 
+            // C#’s built-in library 
             Stack<string> plateStack = new Stack<string>();
 
             // Push plates onto the stack (LIFO: last plate added will be first removed)
@@ -60,7 +61,7 @@ namespace MemoryManagerDemo
             }
             catch (StackOverflowException)
             {
-                // This catch block won't trigger
+                // StackOverflowException can’t be caught in C#
                 // .NET runtime immediately terminates the process to protect memory integrity
                 Console.WriteLine("Stack overflow occurred!");
             }
