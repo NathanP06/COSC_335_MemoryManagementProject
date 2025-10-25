@@ -130,10 +130,12 @@ namespace MemoryManagerDemo
 
         class Table
         {
+            // Properties of the Table class
             public int Number { get; private set; }
             public string Location { get; private set; }
             private Order? CurrentOrder; // stored on the heap
 
+            // Constructor
             public Table(int number, string location)
             {
                 Number = number;
@@ -141,17 +143,20 @@ namespace MemoryManagerDemo
                 CurrentOrder = null;
             }
 
+            // Assign an order to the table
             public void AssignOrder(Order order)
             {
                 CurrentOrder = order;
             }
 
+            // Clear the current order when customers leave
             public void CloseOrder()
             {
                 Console.WriteLine($"Clearing order for Table {Number}...");
                 CurrentOrder = null; // Order object becomes eligible for garbage collection
             }
 
+            // Display current status of the table
             public void DisplayStatus()
             {
                 Console.WriteLine($"\nTable {Number} ({Location}):");
@@ -168,15 +173,18 @@ namespace MemoryManagerDemo
 
         class Order
         {
+            // Properties of the Order class
             private string MainCourse { get; set; }
             private string Dessert { get; set; }
 
+            // Constructor
             public Order(string mainCourse, string dessert)
             {
                 MainCourse = mainCourse;
                 Dessert = dessert;
             }
 
+            // Display ordered items
             public void DisplayItems()
             {
                 Console.WriteLine($"  Main Course: {MainCourse}");
