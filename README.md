@@ -51,6 +51,7 @@ Key implementation notes
 Example console output (representative)
 -------------------------------------
 
+```
 === STACK DEMO ===
 Imagine a stack of plates — Last In, First Out (LIFO).
 
@@ -90,6 +91,7 @@ Reading data from 'projecttext.txt' using a buffer:
 Line 1: Welcome to the Memory Management Demo!
 Line 2: This file is being read using FileStream, BufferedStream, and StreamReader.
 ... (rest of file lines)
+```
 
 How to build and run (Windows PowerShell)
 ---------------------------------------
