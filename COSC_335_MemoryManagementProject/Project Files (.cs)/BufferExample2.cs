@@ -8,7 +8,7 @@ namespace MemoryManagerDemo
     {
         public static void Run()
         {
-            string filePath = "projecttext.txt";
+            string filePath = @"C:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\COSC_335_MemoryManagementProject\projecttext.txt";
 
             if (!File.Exists(filePath))
             {
