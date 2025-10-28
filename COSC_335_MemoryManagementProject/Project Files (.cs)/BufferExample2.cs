@@ -8,11 +8,19 @@ namespace MemoryManagerDemo
     {
         public static void Run()
         {
-            string filePath = @"C:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\COSC_335_MemoryManagementProject\projecttext.txt";
+            // Try to find `projecttext.txt` by searching upwards from the current
+            // working directory first (when run from the project root) and then
+            // from the assembly base directory (which is often the `bin` folder).
+            // This prevents hard-coding the file into `bin` and works when the
+            // project is run from different locations.
+            string fileName = "projecttext.txt";
 
-            if (!File.Exists(filePath))
+            string? filePath = FindFileUpwards(fileName, Directory.GetCurrentDirectory(), 6)
+                               ?? FindFileUpwards(fileName, AppContext.BaseDirectory, 6);
+
+            if (filePath == null)
             {
-                Console.WriteLine($"File '{filePath}' not found.");
+                Console.WriteLine($"File '{fileName}' not found.");
                 return;
             }
 
@@ -32,6 +40,29 @@ namespace MemoryManagerDemo
             }
 
             Console.WriteLine("\n=== END OF FILE ===");
+        }
+
+        // Helper: search for a file by walking up parent directories up to `maxLevels`
+        static string? FindFileUpwards(string fileName, string startDirectory, int maxLevels)
+        {
+            try
+            {
+                var dir = new DirectoryInfo(startDirectory);
+                for (int i = 0; i < maxLevels && dir != null; i++)
+                {
+                    string candidate = Path.Combine(dir.FullName, fileName);
+                    if (File.Exists(candidate))
+                        return candidate;
+
+                    dir = dir.Parent;
+                }
+            }
+            catch
+            {
+                // Ignore and fall through to return null
+            }
+
+            return null;
         }
     }
 }
