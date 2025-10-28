@@ -1,0 +1,71 @@
+Welcome to the Memory Management Demo!
+This file is being read using FileStream, BufferedStream, and StreamReader.
+
+Each of these classes plays a key role in how C# manages data input and output:
+- FileStream handles the raw reading and writing of bytes to and from the file system.
+- BufferedStream improves efficiency by temporarily storing chunks of data in memory, reducing disk I/O calls.
+- StreamReader interprets the bytes as readable text using a specific encoding (in this case, UTF-8).
+
+---------------------------------------
+SECTION 1: STACK VS HEAP
+---------------------------------------
+The stack is a region of memory that stores value types and keeps track of method calls.
+It follows the Last-In, First-Out (LIFO) principle — much like a stack of plates.
+
+Example:
+When a method is called, a new "frame" is pushed onto the stack.
+When the method finishes, that frame is popped off the stack.
+This makes stack allocation very fast but limited in size.
+
+The heap, on the other hand, is used for objects created with the 'new' keyword.
+These objects remain in memory until the Garbage Collector determines that they are no longer needed.
+Heap memory is more flexible but also slower to allocate and manage compared to the stack.
+
+---------------------------------------
+SECTION 2: BUFFERING AND STREAMING
+---------------------------------------
+A buffer is a temporary storage area in memory.
+When reading or writing files, data is often buffered to avoid direct and frequent disk access.
+
+For example:
+- Without buffering, every Read() call would directly touch the disk.
+- With buffering, data is fetched in chunks, and subsequent reads are served from memory.
+
+This results in much faster performance, especially when reading large files or streaming network data.
+
+---------------------------------------
+SECTION 3: MEMORY MANAGEMENT PRINCIPLES
+---------------------------------------
+1. Always dispose of unmanaged resources (streams, file handles, etc.) properly.
+2. Use 'using' statements in C# to automatically release resources.
+3. Avoid unnecessary object creation in loops.
+4. Let the Garbage Collector do its job — don’t try to manually manage heap memory.
+5. Profile your program if you suspect memory leaks or excessive allocations.
+
+---------------------------------------
+SECTION 4: PRACTICAL EXAMPLES
+---------------------------------------
+Imagine reading a log file line by line.
+A naive program might read one character at a time — very slow!
+A buffered approach reads larger chunks (like 4KB) and processes data from memory.
+
+In network programming, buffering helps maintain consistent throughput.
+Even when packets arrive irregularly, buffers smooth out the flow of data.
+
+---------------------------------------
+SECTION 5: FINAL NOTES
+---------------------------------------
+C# provides many abstractions for working with data streams:
+- FileStream
+- MemoryStream
+- NetworkStream
+- BufferedStream
+- StreamReader and StreamWriter
+
+Each builds on the concept of streams — continuous flows of bytes — but adds layers of functionality.
+
+---------------------------------------
+END OF FILE
+---------------------------------------
+This concludes the demonstration file.
+If you can read this message, your FileStream, BufferedStream, and StreamReader setup works perfectly!
