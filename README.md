@@ -2,61 +2,54 @@
 
 Memory Management Demo (C#)
 
-This project demonstrates basic memory management concepts in C# using small, focused examples:
+This is a small, educational console project that demonstrates several core memory-management concepts in C#:
 
-- Stack behavior and a simulated stack-overflow recursion example.
-- Heap usage via objects and garbage collection eligibility.
-- Buffering and streaming examples (MemoryStream, FileStream, BufferedStream, StreamReader).
+- Stack behavior (LIFO, call-stack growth via recursion)
+- Heap usage (objects, references, and garbage-collection eligibility)
+- Buffering and streaming (reading data in chunks from memory and files)
 
-Files of interest
------------------
+The code is intentionally simple and verbose so it can be used for classroom demos or self-study.
 
-- `Project Files (.cs)/Program.cs` — Entry point. Runs the demos in sequence:
-  - Stack demo
-  - Heap demo
-  - Buffer demo (in-memory string)
-  - Buffer demo 2 (reads `projecttext.txt`)
-
-- `Project Files (.cs)/StackExample.cs` — Simulates a stack (LIFO) using `Stack<T>` and shows pushing/popping values. Also contains a recursive method `CauseStackOverflow` used to illustrate how an unbounded recursion would overflow the call stack.
-
-- `Project Files (.cs)/HeapExample.cs` — Demonstrates heap allocation with `Table` and `Order` objects. Shows assigning and clearing references and explains when objects become eligible for garbage collection.
-
-- `Project Files (.cs)/BufferExample.cs` — Reads a long string using a `MemoryStream` and a fixed-size byte buffer (10 bytes). Prints each chunk to illustrate chunked reads and how buffers reduce memory pressure and I/O cost.
-
-- `Project Files (.cs)/BufferExample2.cs` — Reads the file `projecttext.txt` using `FileStream`, `BufferedStream`, and `StreamReader`. Prints the file lines to the console. Note: the code currently uses an absolute path to `projecttext.txt` — see the "File path" note below.
-
-- `projecttext.txt` — A text file included in the project containing an explanatory write-up about stack vs heap, buffering, and best practices.
-
-What the program does (high level)
+Repository layout (important files)
 ---------------------------------
 
-When you run the program it writes descriptive output to the console describing each demo and then executes the demo. The demos are intentionally simple and verbose so a reader can follow how memory concepts map to C# constructs.
+- `COSC_335_MemoryManagementProject/COSC_335_MemoryManagementProject.csproj` — project file
+- `Project Files (.cs)/Program.cs` — entry point; runs the demos in sequence
+- `Project Files (.cs)/StackExample.cs` — stack (LIFO) demo and a recursive method that illustrates call-stack growth
+- `Project Files (.cs)/HeapExample.cs` — heap demo using `Table` and `Order` objects
+- `Project Files (.cs)/BufferExample.cs` — in-memory buffer demo (reads a long string through a MemoryStream in fixed-size chunks)
+- `Project Files (.cs)/BufferExample2.cs` — file buffering demo; reads `projecttext.txt` using FileStream, BufferedStream and StreamReader with a robust lookup for the file
+- `projecttext.txt` — explanatory file read by `BufferExample2`
 
-Detailed behaviors
-------------------
+What the program does
+---------------------
 
-- Stack demo (`StackExample.Run()`):
-  - Creates a `Stack<string>` and pushes five plates (`Plate #1`..`Plate #5`).
-  - Iterates the stack to show the LIFO order and then pops items until empty.
-  - Calls `CauseStackOverflow(int level)` recursively to illustrate how recursion grows the call stack. The sample code attempts to cap at a high level, but in real .NET a `StackOverflowException` is fatal and usually terminates the process; the example's catch block is not reliable because the runtime will typically terminate before managed code can catch it.
+When run, the program prints descriptive headings and runs four demos:
 
-- Heap demo (`HeapExample.Run()`):
-  - Creates `Table` objects (heap-allocated) and assigns `Order` objects to them.
-  - Displays order details, then clears references with `CloseOrder()` and by setting table variables to `null`.
-  - Demonstrates the point at which objects become unreferenced and thus eligible for garbage collection; the demo does not force a GC — it just shows the pattern.
+1. Stack demo — uses a `Stack<string>` to show LIFO push/pop behavior and a recursive helper `CauseStackOverflow` to illustrate call-stack growth.
+2. Heap demo — creates `Table` and `Order` objects, assigns and clears references to show when objects become eligible for garbage collection.
+3. Buffer demo (in-memory) — converts a long string to bytes and reads it in 10-byte chunks using a `MemoryStream` and a small byte[] buffer.
+4. Buffer demo 2 (file) — reads `projecttext.txt` line-by-line using `FileStream` -> `BufferedStream` -> `StreamReader` and prints each line with its number.
 
-- Buffer demo in memory (`BufferExample.Run()`):
-  - Converts a long string to UTF-8 bytes and reads the bytes through a `MemoryStream` using a small fixed-size byte[] buffer (10 bytes).
-  - Prints each buffer chunk as text to show how data can be processed in chunks rather than in one big allocation.
+Key implementation notes
+------------------------
 
-- Buffer demo reading file (`BufferExample2.Run()`):
-  - Opens `projecttext.txt` using `FileStream` wrapped in `BufferedStream`, then reads text via `StreamReader` line-by-line.
-  - Prints each line with its line number. BufferedStream reduces the number of raw file I/O operations by holding chunks in memory.
+- StackExample:
+  - Demonstrates push/pop (LIFO) using `Stack<T>` and prints the steps.
+  - Contains `CauseStackOverflow(int level)` to show how recursion expands the call stack; note that in real .NET a `StackOverflowException` is typically fatal and cannot reliably be caught.
 
-Example console output (trimmed)
--------------------------------
+- HeapExample:
+  - Uses `Table` and `Order` classes to show objects allocated on the heap and how clearing references (e.g., `table1 = null`) makes objects eligible for garbage collection.
 
-The real output contains more lines, but here's a representative snippet you can expect when running:
+- BufferExample:
+  - Shows chunked reads from a `MemoryStream`. This demonstrates handling data in small buffers to reduce memory pressure and avoid large single allocations.
+
+- BufferExample2 (important change)
+  - To avoid requiring `projecttext.txt` to live in the `bin` output folder, `BufferExample2` now searches for `projecttext.txt` by walking up parent directories from the current working directory and from the application base directory (the latter covers cases when the app runs from `bin`).
+  - The search depth is limited (the sample code searches up to 6 parent levels). This makes the demo resilient when you run the app from the project root or from the build output without hard-coded absolute paths.
+
+Example console output (representative)
+-------------------------------------
 
 === STACK DEMO ===
 Imagine a stack of plates — Last In, First Out (LIFO).
@@ -98,49 +91,26 @@ Line 1: Welcome to the Memory Management Demo!
 Line 2: This file is being read using FileStream, BufferedStream, and StreamReader.
 ... (rest of file lines)
 
-How to build and run
---------------------
+How to build and run (Windows PowerShell)
+---------------------------------------
 
-Open a terminal in the repository root (Windows PowerShell) and run:
+Open PowerShell in the repository root and run:
 
 ```powershell
-# Restore (if needed) and build
 dotnet build
-
-# Run the app
 dotnet run --project "COSC_335_MemoryManagementProject/COSC_335_MemoryManagementProject.csproj"
 ```
 
-Notes and gotchas
------------------
+If `BufferExample2` can't find `projecttext.txt`, it will print a helpful message indicating where it searched. If you prefer to always use a fixed relative path, you can update `BufferExample2` to compute a path relative to the repository root or include `projecttext.txt` as a content file in the project file.
 
-- File path: `BufferExample2` uses an absolute path to `projecttext.txt`:
+Notes about StackOverflowException and GC
+----------------------------------------
 
-  string filePath = @"C:\Users\natha\OneDrive\Documents\Coding Projects\C# Projects\COSC_335_MemoryManagementProject\COSC_335_MemoryManagementProject\projecttext.txt";
+- `StackOverflowException` in .NET is typically fatal and the runtime will often terminate the process; the sample recursion is only for demonstration and should not be used to provoke a real overflow.
+- The demos show when objects become eligible for garbage collection; they do not force collection. Use `dotnet-counters`, `dotnet-trace` or Visual Studio Diagnostic Tools if you want to observe GC behavior at runtime.
 
-  If you move the repository or share it with others, update `filePath` to either a relative path or compute the path at runtime. Example (relative):
+Authorship:
+------
+GitHub Copilot Chat was used to assist in the understanding of code, as well as fixing errors, and updating the README.md file.
 
-  ```csharp
-  string filePath = Path.Combine(AppContext.BaseDirectory, "projecttext.txt");
-  ```
-
-- StackOverflow caveat: in .NET the `StackOverflowException` is typically fatal and cannot reliably be caught by managed code; the sample recursion is only educational.
-
-- Disposal: the projects use `using` blocks to ensure streams are disposed promptly — a good practice for unmanaged resources.
-
-Suggested next steps (small improvements)
----------------------------------------
-
-1. Change `BufferExample2` to use a relative path so others can run the demo without editing code.
-2. Add a command-line switch to control which demos to run (e.g., `--stack`, `--heap`, `--buffers`).
-3. Add a unit test project with a few small tests verifying the non-UI behaviors (e.g., table order assignment logic).
-
-Author and license
-------------------
-
-Author: NathanP06
-
-This README is a descriptive guide for the course project and educational use.
-
----
-End of README
+Repository Authors: NathanP06, TylerLuke024, Kelmyrl
