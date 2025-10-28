@@ -19,9 +19,12 @@ namespace MemoryManagerDemo
             Console.WriteLine("\n=== HEAP DEMO ===");
             HeapExample.Run();
 
-            // BUFFER DEMO
-            Console.WriteLine("\n=== BUFFER DEMO ===");
+            // BUFFER DEMOS
+            Console.WriteLine("\n=== BUFFER DEMO - In Program/String ===");
             BufferExample.Run();
+
+            Console.WriteLine("\n=== BUFFER DEMO 2 - In .txt file ===");
+            BufferExample2.Run();
 
             Console.WriteLine("\n Demo complete!");
         }
