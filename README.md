@@ -1,90 +1,116 @@
 # COSC_335_MemoryManagementProject
-A simple memory management project for my COSC 335 - Operating Systems class
 
-## About `Program.cs`
+Memory Management Demo (C#)
 
-`Program.cs` is a small, educational console program that demonstrates three core memory concepts in C#:
+This is a small, educational console project that demonstrates several core memory-management concepts in C#:
 
-- Stack memory (via recursion)
-- Heap memory (via object allocation and references)
-- Buffering (reading data in fixed-size chunks)
+- Stack behavior (LIFO, call-stack growth via recursion)
+- Heap usage (objects, references, and garbage-collection eligibility)
+- Buffering and streaming (reading data in chunks from memory and files)
 
-The program prints clear, annotated output for each demo so it can be used in class presentations or for self-study.
+The code is intentionally simple and verbose so it can be used for classroom demos or self-study.
 
-### Files
+Repository layout (important files)
+---------------------------------
 
-- `COSC_335_MemoryManagementProject/Program.cs` — the main demo program with three examples: `StackExample`, `HeapExample`, and `BufferExample`.
+- `COSC_335_MemoryManagementProject/COSC_335_MemoryManagementProject.csproj` — project file
+- `Project Files (.cs)/Program.cs` — entry point; runs the demos in sequence
+- `Project Files (.cs)/StackExample.cs` — stack (LIFO) demo and a recursive method that illustrates call-stack growth
+- `Project Files (.cs)/HeapExample.cs` — heap demo using `Table` and `Order` objects
+- `Project Files (.cs)/BufferExample.cs` — in-memory buffer demo (reads a long string through a MemoryStream in fixed-size chunks)
+- `Project Files (.cs)/BufferExample2.cs` — file buffering demo; reads `projecttext.txt` using FileStream, BufferedStream and StreamReader with a robust lookup for the file
+- `projecttext.txt` — explanatory file read by `BufferExample2`
 
-## How to run
+What the program does
+---------------------
 
-From the repository root (PowerShell on Windows):
+When run, the program prints descriptive headings and runs four demos:
+
+1. Stack demo — uses a `Stack<string>` to show LIFO push/pop behavior and a recursive helper `CauseStackOverflow` to illustrate call-stack growth.
+2. Heap demo — creates `Table` and `Order` objects, assigns and clears references to show when objects become eligible for garbage collection.
+3. Buffer demo (in-memory) — converts a long string to bytes and reads it in 10-byte chunks using a `MemoryStream` and a small byte[] buffer.
+4. Buffer demo 2 (file) — reads `projecttext.txt` line-by-line using `FileStream` -> `BufferedStream` -> `StreamReader` and prints each line with its number.
+
+Key implementation notes
+------------------------
+
+- StackExample:
+  - Demonstrates push/pop (LIFO) using `Stack<T>` and prints the steps.
+  - Contains `CauseStackOverflow(int level)` to show how recursion expands the call stack; note that in real .NET a `StackOverflowException` is typically fatal and cannot reliably be caught.
+
+- HeapExample:
+  - Uses `Table` and `Order` classes to show objects allocated on the heap and how clearing references (e.g., `table1 = null`) makes objects eligible for garbage collection.
+
+- BufferExample:
+  - Shows chunked reads from a `MemoryStream`. This demonstrates handling data in small buffers to reduce memory pressure and avoid large single allocations.
+
+- BufferExample2 (important change)
+  - To avoid requiring `projecttext.txt` to live in the `bin` output folder, `BufferExample2` now searches for `projecttext.txt` by walking up parent directories from the current working directory and from the application base directory (the latter covers cases when the app runs from `bin`).
+  - The search depth is limited (the sample code searches up to 6 parent levels). This makes the demo resilient when you run the app from the project root or from the build output without hard-coded absolute paths.
+
+Example console output (representative)
+-------------------------------------
+
+=== STACK DEMO ===
+Imagine a stack of plates — Last In, First Out (LIFO).
+
+Adding plates to the stack...
+Pushed Plate #1
+Pushed Plate #2
+Pushed Plate #3
+Pushed Plate #4
+Pushed Plate #5
+
+Now removing plates from the stack (LIFO order):
+Popped Plate #5
+Popped Plate #4
+Popped Plate #3
+Popped Plate #2
+Popped Plate #1
+
+=== HEAP DEMO ===
+Restaurant Memory Management Demo:
+
+Table 1 (Window):
+  Main Course: Pasta
+  Dessert: Tiramisu
+
+Table 2 (Patio):
+  Main Course: Steak
+  Dessert: Cheesecake
+
+=== BUFFER DEMO - In Program/String ===
+Buffer #1: This is a
+Buffer #2:  string of
+... (etc)
+
+=== BUFFER DEMO 2 - In .txt file ===
+Reading data from 'projecttext.txt' using a buffer:
+
+Line 1: Welcome to the Memory Management Demo!
+Line 2: This file is being read using FileStream, BufferedStream, and StreamReader.
+... (rest of file lines)
+
+How to build and run (Windows PowerShell)
+---------------------------------------
+
+Open PowerShell in the repository root and run:
 
 ```powershell
-# Build the solution
 dotnet build
-
-# Run the console demo (project path may be adjusted if needed)
-dotnet run --project .\COSC_335_MemoryManagementProject\COSC_335_MemoryManagementProject.csproj
+dotnet run --project "COSC_335_MemoryManagementProject/COSC_335_MemoryManagementProject.csproj"
 ```
 
-The program will run the three demos in order and print explanatory text to the console.
+If `BufferExample2` can't find `projecttext.txt`, it will print a helpful message indicating where it searched. If you prefer to always use a fixed relative path, you can update `BufferExample2` to compute a path relative to the repository root or include `projecttext.txt` as a content file in the project file.
 
-## What each demo shows
+Notes about StackOverflowException and GC
+----------------------------------------
 
-- `StackExample(int depth)`
-	- Demonstrates stack frames through recursion. Each recursive call creates a new frame and local variables live on the stack. When recursion returns, frames are popped (LIFO behavior).
+- `StackOverflowException` in .NET is typically fatal and the runtime will often terminate the process; the sample recursion is only for demonstration and should not be used to provoke a real overflow.
+- The demos show when objects become eligible for garbage collection; they do not force collection. Use `dotnet-counters`, `dotnet-trace` or Visual Studio Diagnostic Tools if you want to observe GC behavior at runtime.
 
-- `HeapExample()`
-	- Shows object allocation on the heap using the `Dog` class. Two Dog objects are created and then their references are set to `null`, illustrating how objects become eligible for garbage collection.
+Authorship:
+------
+GitHub Copilot Chat was used to assist in the understanding of code, as well as fixing errors, and updating the README.md file.
 
-- `BufferExample()`
-	- Simulates stream processing with a fixed-size buffer (10 bytes). Shows how data is read in chunks from a MemoryStream and how buffers help manage memory when processing streams.
-
-## How to present this to a class (quick tips)
-
-- Run the program and pause after each demo to explain what's printed.
-- For the stack demo, draw stack frames on the board as the recursion goes deeper and then unwinds.
-- For the heap demo, draw heap objects and reference arrows. Emphasize that setting a reference to `null` only removes the reference; the GC decides when to reclaim the memory.
-- For the buffer demo, draw a fixed-size buffer and show how each chunk fills and empties the buffer.
-
-## Observing the .NET Garbage Collector (non-invasive)
-
-If you want to *observe* the garbage collector in action without changing `Program.cs`, use one of these tools from another PowerShell window while the demo runs:
-
-- dotnet-counters (live counters)
-	- List .NET processes:
-		```powershell
-		dotnet-counters ps
-		```
-	- Monitor GC-related counters (replace `<PID>`):
-		```powershell
-		dotnet-counters monitor -p <PID> System.Runtime
-		```
-	- Watch counters such as `gen-0-gc-count`, `allocated-bytes`, and `time-in-gc`.
-
-- dotnet-trace (record and analyze)
-	- Record a trace while the app runs (replace `<PID>`):
-		```powershell
-		dotnet-trace collect -p <PID> --providers Microsoft-DotNETRuntime:4:5 -o trace.nettrace
-		```
-	- Open `trace.nettrace` in PerfView or Visual Studio for GC events and timings.
-
-- dotnet-gcdump (heap snapshot)
-	- Collect a GC heap dump:
-		```powershell
-		dotnet-gcdump collect -p <PID> -o myheap.gcdump
-		```
-	- Open the `.gcdump` in Visual Studio to inspect heap size and object types.
-
-- Visual Studio Diagnostics
-	- Run under the debugger and open the Diagnostic Tools. Use the Memory tab to take snapshots and force GC. This provides a visual view of objects, retention graphs, and allocation stacks.
-
-- PerfView
-	- Use PerfView for detailed GC/heap analysis and allocation stacks. Collect GC traces and view heaps and GC pauses.
-
-Notes:
-- If your demo run creates only a few objects the GC may not run frequently. You can repeatedly run `Program.cs` or attach a runtime tool while it runs to observe collection activity.
-
-Important: This repository's intent is to keep the demonstrations focused in `Program.cs`. The guidance above uses only non-invasive runtime tools (dotnet-counters, dotnet-trace, dotnet-gcdump, Visual Studio Diagnostics, PerfView).
-
-This is generated through GitHub Copilot Chat
+Repository Authors: NathanP06, TylerLuke024, Kelmyrl
